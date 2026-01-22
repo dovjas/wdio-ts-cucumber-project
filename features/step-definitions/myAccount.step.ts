@@ -1,11 +1,11 @@
 import { Then } from "@wdio/cucumber-framework";
-import myaccountPage from "../pageobjects/myaccount.page.ts";
+import MyAccountPage from "../pageobjects/myAccount.page";
 
 
 Then(
   /^I verify the address information in my profile section$/,
   async () => {
-    await myaccountPage.verifyAddressInfo();
-    await expect(myaccountPage.phone_input).toBeDisplayed();
+    await MyAccountPage.verifyAddressInfo();
+    await expect(MyAccountPage.phone_input).toBeDisplayed();
   }
 );
