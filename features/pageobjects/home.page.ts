@@ -17,13 +17,18 @@ class HomePage {
     return $('=Sign out');
   }
   // Actions
-  async navigaToLoginPage() {
+  async navigateToLoginPage() {
+    await this.signInBtn.waitForClickable();
     await this.signInBtn.click();
     console.log('Sign In button clicked');
   }
 
   async logout(){
+    await this.topMenuDropdown.waitForExist();
+    await this.topMenuDropdown.waitForClickable();
     await this.topMenuDropdown.click();
+
+    await this.logOutBtn.waitForClickable();
     await this.logOutBtn.click();
   }
   

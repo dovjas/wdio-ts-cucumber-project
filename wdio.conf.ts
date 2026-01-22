@@ -55,7 +55,12 @@ export const config: WebdriverIO.Config = {
     {
       browserName: 'chrome',
       'goog:chromeOptions': {
-        args: ['--ignore-certificate-errors', '--allow-insecure-localhost'],
+        args: [
+          '--headless=new',
+          '--window-size=1920,1080',
+          '--ignore-certificate-errors',
+          '--allow-insecure-localhost',
+        ],
       },
     },
   ],
@@ -227,8 +232,8 @@ export const config: WebdriverIO.Config = {
    * @param {Array.<String>} specs        List of spec file paths that are to be run
    * @param {object}         browser      instance of created browser/device session
    */
-  before: function (capabilities, specs):void {
-    allureReporter.addLabel('Initial configuration')
+  before: function (capabilities, specs): void {
+    allureReporter.addLabel('Initial configuration');
   },
   /**
    * Runs before a WebdriverIO command gets executed.
@@ -277,7 +282,7 @@ export const config: WebdriverIO.Config = {
    * @param {object}             context          Cucumber World object
    */
   afterStep: function (step, scenario, result, context) {
-    if(!result.passed){
+    if (!result.passed) {
       browser.takeScreenshot();
     }
   },

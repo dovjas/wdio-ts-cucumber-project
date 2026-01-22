@@ -10,6 +10,7 @@ Then(/^Create an account with random username$/, async () => {
   allureReporter.addSeverity('critical')
 });
 Given(/^I am on the Sign In Page$/, async()=>{
+  await authPage.loginBtn.waitForDisplayed();
   await expect(authPage.loginBtn).toBeDisplayed();
 });
 When(/^Login using newly created dynamic credentials$/, async()=>{

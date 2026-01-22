@@ -51,7 +51,9 @@ class ShoppingCart {
       await expect(this.productTitle[i]).toHaveText(products[i].title);
       await expect(this.productQuantity[i]).toHaveValue(products[i].quantity);
       await expect(this.productPrice[i]).toHaveText(products[i].product_price);
-      await expect(this.productTotalPrice[i]).toHaveText(products[i].total_price)     
+      await expect(this.productTotalPrice[i]).toHaveText(products[i].total_price)  
+      await this.cartTotalPrice.waitForDisplayed();   
+      await browser.pause(1000);
       await expect(this.cartTotalPrice).toHaveText(expectedCartTotal);
     }
 

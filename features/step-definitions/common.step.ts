@@ -3,7 +3,7 @@ import commonPage from '../pageobjects/common.page.ts';
 import homePage from '../pageobjects/home.page.ts';
 
 Given(/^I am on the home page$/, async () => {
-  commonPage.openHomePage();
+  await commonPage.openHomePage();
 
   if (await homePage.topMenuDropdown.isExisting()){
     await homePage.logout();
@@ -13,5 +13,5 @@ Given(/^I am on the home page$/, async () => {
   await expect(homePage.contactUsBtn).toBePresent();
 });
 When(/^Navigate to SignUp page$/, async () => {
-  homePage.navigaToLoginPage();
+  await homePage.navigateToLoginPage();
 });
