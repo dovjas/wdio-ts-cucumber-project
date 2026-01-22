@@ -46,7 +46,6 @@ class ShoppingCart {
     const expectedCartTotal = products[products.length - 1].cart_total;
 
     await this.checkoutBtn.click();
-    await browser.pause(4000)
 
     for(let i = 0; i < products.length; i++){
       await expect(this.productTitle[i]).toHaveText(products[i].title);

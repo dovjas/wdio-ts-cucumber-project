@@ -89,7 +89,6 @@ class AuthPage {
 
     await this.password_input.click();
     await browser.keys(password);
-    await browser.pause(8000);
     await this.loginBtn.click();
   }
 }
