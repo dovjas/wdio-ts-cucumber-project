@@ -3,8 +3,13 @@ class commonPage{
         await browser.url('https://practicesoftwaretesting.com/');
         await console.log('Page opened:https://practicesoftwaretesting.com/');
 
-        const pageTitle = await browser.getTitle();
-        console.log('Page title is: ',await pageTitle);
+        await browser.waitUntil(
+          async () => (await browser.getTitle()) !== 'Just a moment...',
+          {
+            timeout: 20000,
+            timeoutMsg: 'Cloudflare protection page did not disappear',
+          },
+        );
     }
 }
 
