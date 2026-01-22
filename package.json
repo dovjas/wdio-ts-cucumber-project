@@ -4,9 +4,10 @@
   "description": "wdio cucumber ts ecommerce",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "wdio": "wdio run ./wdio.conf.ts",
-    "allure": "npx allure generate allure-results --clean && allure open"
+    "test": "wdio run ./wdio.conf.ts",
+    "allure": "npx allure allure open",
+    "allure-generate": "npx allure generate allure-results --clean",
+    "allure-open": "npx allure allure open"
   },
   "keywords": [
     "e2e"
