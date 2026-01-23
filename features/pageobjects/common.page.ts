@@ -1,6 +1,8 @@
 class commonPage{
     openHomePage = async()=>{
         await browser.url('https://practicesoftwaretesting.com/');
+        const html = await browser.getPageSource();
+        console.log('IS THIS CF?????????',html.substring(0, 2000));
         await console.log('Page opened:https://practicesoftwaretesting.com/');
 
         await browser.waitUntil(

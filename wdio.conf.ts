@@ -63,6 +63,7 @@ export const config: WebdriverIO.Config = {
           '--disable-dev-shm-usage',
           '--no-sandbox',
           '--ignore-certificate-errors',
+          '--disable-blink-features=AutomationControlled',
         ],
       },
     },
