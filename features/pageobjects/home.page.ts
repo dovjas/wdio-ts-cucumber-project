@@ -9,11 +9,11 @@ class HomePage {
   public get logoImg() {
     return $('a[title="Practice Software Testing - Toolshop"] svg');
   }
-  public get topMenuDropdown(){
+  public get topMenuDropdown() {
     return $('#menu');
   }
 
-  public get logOutBtn(){
+  public get logOutBtn() {
     return $('=Sign out');
   }
   // Actions
@@ -23,7 +23,7 @@ class HomePage {
     console.log('Sign In button clicked');
   }
 
-  async logout(){
+  async logout() {
     await this.topMenuDropdown.waitForExist();
     await this.topMenuDropdown.waitForClickable();
     await this.topMenuDropdown.click();
@@ -31,7 +31,15 @@ class HomePage {
     await this.logOutBtn.waitForClickable();
     await this.logOutBtn.click();
   }
-  
-}
 
+  async ensureLoggedOut() {
+    if (await this.topMenuDropdown.isExisting()) {
+      await this.logout();
+    }
+  }
+
+  async isLoggedIn() {
+    await this.topMenuDropdown.isDisplayed();
+  }
+}
 export default new HomePage();

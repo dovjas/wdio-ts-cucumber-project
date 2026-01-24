@@ -9,3 +9,16 @@ export async function waitForInputValue(locator: WebdriverIO.Element) {
     return value.trim().length > 0;
   });
 }
+
+export async function waitForPageComplete() {
+  await browser.waitUntil(
+    async () => {
+      const state = await browser.execute(() => document.readyState);
+      return state === 'complete';
+    },
+    {
+      timeout: 10000,
+      timeoutMsg: 'Page never reached readyState=complete',
+    },
+  );
+}

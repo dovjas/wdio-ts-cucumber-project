@@ -1,20 +1,27 @@
 import { Then, Given, When } from '@wdio/cucumber-framework';
-import authPage from '../pageobjects/auth.page.ts';
-import { createUser } from '../data/userData.ts';
+import authPage from '../pageobjects/auth.page';
+import { createUser } from '../data/userData';
 import allureReporter from '@wdio/allure-reporter';
 
 
-const user = createUser();
-Then(/^Create an account with random username$/, async () => {
-  await authPage.createAccount(user);
+Then(/^Create an account with random username$/, async function(){
+  this.user = createUser();
+  await authPage.createAccount(this.user);
   allureReporter.addSeverity('critical')
 });
-Given(/^I am on the Sign In Page$/, async()=>{
+
+Given(/^I am on the Sign In Page$/, async function(){
   await authPage.loginBtn.waitForDisplayed();
   await expect(authPage.loginBtn).toBeDisplayed();
 });
-When(/^Login using newly created dynamic credentials$/, async()=>{
-  await authPage.login(user.email, user.password)
+
+When(/^Login using newly created dynamic credentials$/, async function(){
+  if(!this.user){
+    throw new Error('User not found in World');
+  }
+  await browser.url('https://practicesoftwaretesting.com/auth/login');
+  await authPage.login(this.user.email, this.user.password);
+  await authPage.userMenuDropdown.waitForExist({ timeout: 10000 });
   await expect(authPage.userMenuDropdown).toBeExisting();
 });
 

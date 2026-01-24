@@ -1,18 +1,21 @@
 Feature: SignUp Sign In and Purchase Product
 
+
+    @loggedOut
     Scenario: TC-001 Create New user/SignUp
         Given I am on the home page
         When Navigate to SignUp page
         Then Create an account with random username
 
+    @requireUser
     Scenario:TC-002 Sign In with newly created user credentials
-        Given I am on the Sign In Page
+        Given I am on the home page
         When Login using newly created dynamic credentials
         Then I verify the address information in my profile section
-
+    
+    @requireUser
     Scenario:TC-003 Add product to Online Cart and checkout
         Given I am on the home page
-        When Navigate to SignUp page
         When Login using newly created dynamic credentials
         When I add below products to cart
             | category   | subCategory | title        | co2_rating | quantity | price |

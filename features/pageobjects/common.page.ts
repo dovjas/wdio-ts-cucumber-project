@@ -1,4 +1,4 @@
-class commonPage{
+class CommonPage{
     openHomePage = async()=>{
         await browser.url('https://practicesoftwaretesting.com/');
         const html = await browser.getPageSource();
@@ -16,4 +16,4 @@ class commonPage{
     }
 }
 
-export default new commonPage;
+export default new CommonPage;
