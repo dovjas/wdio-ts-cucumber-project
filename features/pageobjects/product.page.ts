@@ -63,14 +63,16 @@ class ProductPage {
   }
   // Actions
   async goToCategory(category: Category) {
+    await this.categoriesBtn.waitForClickable();
     await this.categoriesBtn.click();
+
     await this.categoryType(category).click();
   }
 
  async goToProduct(title: string) {
   const product = this.productCardByName(title);
 
-  await product.waitForExist({
+  await product.waitForClickable({
     timeout: 5000,
     timeoutMsg: `Product "${title}" not found`,
   });
@@ -81,16 +83,21 @@ class ProductPage {
 
   async addToCart(dataTable) {
     const products = dataTable.hashes() as ProductTableRow[];
+
     for(const product of products){
       const category = this.normalizeCategory(product.category);
       await this.goToCategory(category);
       await this.goToProduct(product.title);
 
     await expect(this.productTitle).toHaveText(product.title);
+
+    await this.productQuantityInput.setValue(product.quantity);
     await expect(this.productQuantityInput).toHaveValue(product.quantity);
+    
     await expect(this.co2Rating).toHaveText(product.co2_rating);
     await expect(this.productPrice).toHaveText(product.price);
 
+    await this.addToCartBtn.waitForClickable();
     await this.addToCartBtn.click();
     }
   }

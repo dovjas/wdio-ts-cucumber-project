@@ -46,8 +46,8 @@ class MyAccount {
   }
 
   //Actions
-
   async verifyAddressInfo() {
+    await this.profileBtn.waitForClickable();
     await this.profileBtn.click();
 
     await waitForInputValue(this.firstName_input);
