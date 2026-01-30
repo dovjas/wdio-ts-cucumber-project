@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "wdio run ./wdio.conf.ts",
+    "regression": "wdio run ./wdio.conf.ts --cucumberOpts.tagExpression='@regression'",
     "allure:generate": "allure generate allure-results --clean",
     "allure:open": "allure open"
   },
@@ -25,6 +26,8 @@
     "@wdio/local-runner": "^9.22.0",
     "@wdio/spec-reporter": "^9.20.0",
     "allure-commandline": "^2.36.0",
-    "expect-webdriverio": "^5.6.1"
+    "cucumber-html-reporter": "^7.2.0",
+    "expect-webdriverio": "^5.6.1",
+    "wdio-cucumberjs-json-reporter": "^6.0.1"
   }
 }

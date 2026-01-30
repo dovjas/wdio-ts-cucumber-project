@@ -1,4 +1,5 @@
 import allureReporter from '@wdio/allure-reporter';
+import cucumberJson from 'wdio-cucumberjs-json-reporter';
 
 export const config: WebdriverIO.Config = {
   //
@@ -155,6 +156,13 @@ export const config: WebdriverIO.Config = {
         },
       },
     ],
+    [
+      'cucumberjs-json',
+      {
+        jsonFolder: 'reporter/json/',
+        language: 'en',
+      },
+    ],
   ],
   // If you are using Cucumber you need to specify the location of your step definitions.
   cucumberOpts: {
@@ -285,10 +293,8 @@ export const config: WebdriverIO.Config = {
    * @param {number}             result.duration  duration of scenario in milliseconds
    * @param {object}             context          Cucumber World object
    */
-  afterStep: function (step, scenario, result, context) {
-    if (!result.passed) {
-      browser.takeScreenshot();
-    }
+  afterStep: async function (step, scenario, result, context) {
+    cucumberJson.attach(await browser.takeScreenshot(), 'image/png');
   },
   /**
    *

@@ -1,7 +1,7 @@
 Feature: SignUp Sign In and Purchase Product
 
 
-    # @loggedOut
+    @regression
     Scenario: TC-001 Create New user/SignUp
         Given I am on the home page
         When Navigate to SignUp page
