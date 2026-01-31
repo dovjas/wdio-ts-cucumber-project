@@ -1,10 +1,8 @@
 name: WDIO E2E Tests
-env:
-  BASE_URL: ${{ secrets.BASE_URL || 'https://practicesoftwaretesting.com/' }}
-  run: |
-    npx wdio run ./wdio.conf.ts --headless
 on:
   pull_request:
+    branches: [ main ]
+  push:
     branches: [ main ]
   workflow_dispatch:
 
@@ -15,7 +13,8 @@ jobs:
     env:
         CI: true
         HEADLESS: true
-
+        BASE_URL: ${{ secrets.BASE_URL || 'https://practicesoftwaretesting.com/' }}
+    
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
