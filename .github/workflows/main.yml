@@ -29,8 +29,7 @@ jobs:
         run: npm ci
 
       - name: Run WDIO tests (headless)
-        run: |
-          xvfb-run --auto-servernum npm test
+        run: npm test
 
       - name: Generate Allure report
         if: always()

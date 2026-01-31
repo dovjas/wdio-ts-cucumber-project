@@ -25,22 +25,6 @@ When(/^Login using newly created dynamic credentials$/, async function(){
   await homePage.signInBtn.click();
   await authPage.email_input.waitForExist();
   await authPage.login(this.user.email, this.user.password);
-  // ✅ BULLETPROOF: Multiple success conditions
-  await browser.waitUntil(
-    async () => {
-      const currentUrl = await browser.getUrl();
-      const loginFormGone = !(await authPage.email_input.isExisting());
-      const signInBtnGone = !(await homePage.signInBtn.isExisting());
-
-      return loginFormGone || signInBtnGone || !currentUrl.includes('login');
-    },
-    {
-      timeout: 20000,
-      timeoutMsg: 'Login failed - still on login page',
-    },
-  );
-
-  console.log('✅ Login verified by state change');
   await authPage.userMenuDropdown.waitForExist({ timeout: 10000 });
   await authPage.userMenuDropdown.waitForClickable({ timeout: 10000 });
   await expect(authPage.userMenuDropdown).toBeExisting();
