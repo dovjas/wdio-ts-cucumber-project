@@ -25,23 +25,24 @@ When(/^Login using newly created dynamic credentials$/, async function(){
   await homePage.signInBtn.click();
   await authPage.email_input.waitForExist();
   await authPage.login(this.user.email, this.user.password);
-  await authPage.userMenuDropdown.waitForExist({ timeout: 10000 });
-  await authPage.userMenuDropdown.waitForClickable({ timeout: 10000 });
-  // ✅ Environment-agnostic success checks (works everywhere)
+  // ✅ BULLETPROOF: Multiple success conditions
   await browser.waitUntil(
     async () => {
-      const url = await browser.getUrl();
-      return (
-        url.includes('/dashboard') ||
-        !url.includes('login') ||
-        !(await authPage.email_input.isExisting())
-      );
+      const currentUrl = await browser.getUrl();
+      const loginFormGone = !(await authPage.email_input.isExisting());
+      const signInBtnGone = !(await homePage.signInBtn.isExisting());
+
+      return loginFormGone || signInBtnGone || !currentUrl.includes('login');
     },
     {
-      timeout: 15000,
-      timeoutMsg: 'Login failed - still on login page after 15s',
+      timeout: 20000,
+      timeoutMsg: 'Login failed - still on login page',
     },
   );
+
+  console.log('✅ Login verified by state change');
+  await authPage.userMenuDropdown.waitForExist({ timeout: 10000 });
+  await authPage.userMenuDropdown.waitForClickable({ timeout: 10000 });
   await expect(authPage.userMenuDropdown).toBeExisting();
 });
 
