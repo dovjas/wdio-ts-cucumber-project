@@ -55,16 +55,30 @@ export const config: WebdriverIO.Config = {
   capabilities: [
     {
       browserName: 'chrome',
+      acceptInsecureCerts: true,
       'goog:chromeOptions': {
         args: [
+          //Headless that mimics real browser
           '--headless=new',
+          '--disable-gpu',
+          '--remote-debugging-port=9222',
+          //Viewport + UA rotation (critical)
           '--window-size=1920,1080',
+          '--user-agent=Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+          //Stealth flags for Cloudflare
           '--ignore-certificate-errors',
           '--allow-insecure-localhost',
           '--disable-dev-shm-usage',
           '--no-sandbox',
           '--ignore-certificate-errors',
           '--disable-blink-features=AutomationControlled',
+          '--disable-features=VizDisplayCompositor',
+          '--disable-extensions',
+          '--disable-setuid-sandbox',
+          '--disable-web-security',
+          '--disable-features=IsolateOrigins,site-per-process',
+          '--disable-background-timer-throttling',
+          '--disable-backgrounding-occluded-windows',
         ],
       },
     },
@@ -117,7 +131,7 @@ export const config: WebdriverIO.Config = {
   // Services take over a specific job you don't want to take care of. They enhance
   // your test setup with almost no effort. Unlike plugins, they don't add new
   // commands. Instead, they hook themselves up into the test process.
-  // services: [],
+  services: [],
   //
   // Framework you want to run your specs with.
   // The following are supported: Mocha, Jasmine, and Cucumber
