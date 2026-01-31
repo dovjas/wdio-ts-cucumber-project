@@ -21,6 +21,7 @@ When(/^Login using newly created dynamic credentials$/, async function(){
   }
   // await browser.url('https://practicesoftwaretesting.com/auth/login');
   await browser.url('https://practicesoftwaretesting.com/');
+  await homePage.signInBtn.waitForClickable();
   await homePage.signInBtn.click();
   await authPage.email_input.waitForExist();
   await authPage.login(this.user.email, this.user.password);
