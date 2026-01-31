@@ -16,7 +16,7 @@ Given(/^I am on the Sign In Page$/, async function(){
 });
 
 When(/^Login using newly created dynamic credentials$/, async function(){
-  if(!this.user){
+  if (!this.user) {
     throw new Error('User not found in World');
   }
   // await browser.url('https://practicesoftwaretesting.com/auth/login');
@@ -25,10 +25,23 @@ When(/^Login using newly created dynamic credentials$/, async function(){
   await homePage.signInBtn.click();
   await authPage.email_input.waitForExist();
   await authPage.login(this.user.email, this.user.password);
-  await browser.pause(3000);
-  await browser.saveScreenshot('./debug-post-login.png');
   await authPage.userMenuDropdown.waitForExist({ timeout: 10000 });
   await authPage.userMenuDropdown.waitForClickable({ timeout: 10000 });
+  // ✅ Environment-agnostic success checks (works everywhere)
+  await browser.waitUntil(
+    async () => {
+      const url = await browser.getUrl();
+      return (
+        url.includes('/dashboard') ||
+        !url.includes('login') ||
+        !(await authPage.email_input.isExisting())
+      );
+    },
+    {
+      timeout: 15000,
+      timeoutMsg: 'Login failed - still on login page after 15s',
+    },
+  );
   await expect(authPage.userMenuDropdown).toBeExisting();
 });
 
