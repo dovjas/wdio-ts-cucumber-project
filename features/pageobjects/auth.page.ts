@@ -1,5 +1,5 @@
 class AuthPage {
-  //Locators 
+  //Locators
   public get registerAccountBtn() {
     return $('=Register your account');
   }
@@ -52,11 +52,11 @@ class AuthPage {
     return $('=Register');
   }
 
-  public get loginBtn(){
+  public get loginBtn() {
     return $('input[value="Login"]');
   }
 
-  public get userMenuDropdown(){
+  public get userMenuDropdown() {
     return $('#menu');
   }
 
@@ -76,14 +76,14 @@ class AuthPage {
     await this.country_dropdown.selectByVisibleText(userData.country);
     await this.phone_input.setValue(userData.phone);
     await this.email_input.setValue(userData.email);
-    
+
     await this.password_input.click();
     await browser.keys(userData.password);
-    
+
     await this.registerBtn.click();
   }
 
-  async login(email:string, password:string){
+  async login(email: string, password: string) {
     await this.email_input.waitForDisplayed();
     await this.email_input.setValue(email);
 
