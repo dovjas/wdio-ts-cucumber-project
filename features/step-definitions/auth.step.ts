@@ -20,6 +20,7 @@ When(/^Login using newly created dynamic credentials$/, async function(){
     throw new Error('User not found in World');
   }
   await browser.url('https://practicesoftwaretesting.com/auth/login');
+  await authPage.email_input.waitForExist();
   await authPage.login(this.user.email, this.user.password);
   await authPage.userMenuDropdown.waitForExist({ timeout: 10000 });
   await expect(authPage.userMenuDropdown).toBeExisting();
