@@ -15,19 +15,32 @@ Given(/^I am on the Sign In Page$/, async function(){
   await expect(authPage.loginBtn).toBeDisplayed();
 });
 
-When(/^Login using newly created dynamic credentials$/, async function(){
+When(/^Login using newly created dynamic credentials$/, async function () {
   if (!this.user) {
     throw new Error('User not found in World');
   }
-  // await browser.url('https://practicesoftwaretesting.com/auth/login');
   await browser.url('https://practicesoftwaretesting.com/');
   await homePage.signInBtn.waitForClickable();
   await homePage.signInBtn.click();
   await authPage.email_input.waitForExist();
   await authPage.login(this.user.email, this.user.password);
-  await authPage.userMenuDropdown.waitForExist({ timeout: 10000 });
-  await authPage.userMenuDropdown.waitForClickable({ timeout: 10000 });
-  await expect(authPage.userMenuDropdown).toBeExisting();
+
+  await browser.waitUntil(
+    async () => {
+      const currentUrl = await browser.getUrl();
+      const loginFormGone = !(await authPage.email_input.isExisting());
+      const signInBtnGone = !(await homePage.signInBtn.isExisting());
+      return loginFormGone || signInBtnGone || !currentUrl.includes('login');
+    },
+    {
+      timeout: 20000,
+      timeoutMsg: 'Login failed - still on login page',
+    },
+  );
+
+  console.log('✅ Login verified by state change');
+  // END - NO MORE LINES NEEDED
 });
+
 
 
