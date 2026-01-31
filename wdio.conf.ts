@@ -308,7 +308,13 @@ export const config: WebdriverIO.Config = {
    * @param {object}             context          Cucumber World object
    */
   afterStep: async function (step, scenario, result, context) {
-    cucumberJson.attach(await browser.takeScreenshot(), 'image/png');
+    if(!result.passed){
+      await allureReporter.addAttachment(
+        'Failure screenshot',
+        await browser.takeScreenshot(),
+        'imgg/png'
+      )
+    }
   },
   /**
    *
