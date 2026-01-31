@@ -47,6 +47,7 @@ class MyAccount {
 
   //Actions
   async verifyAddressInfo() {
+    await this.profileBtn.waitForDisplayed();
     await this.profileBtn.waitForClickable();
     await this.profileBtn.click();
 
