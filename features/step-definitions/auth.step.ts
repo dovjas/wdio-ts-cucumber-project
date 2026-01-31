@@ -39,9 +39,6 @@ When(/^Login using newly created dynamic credentials$/, async function () {
   );
 
   console.log('✅ Login verified by state change');
-  // END - NO MORE LINES NEEDED
-    await $(`a[routerlink="profile"]`).waitForExist({ timeout: 10000 });
-    console.log('✅ Profile navigation ready');
 });
 
 
