@@ -47,6 +47,7 @@ class MyAccount {
 
   //Actions
   async verifyAddressInfo() {
+    console.log('Current URL of VerifyAddress:', await browser.getUrl());
     await this.profileBtn.scrollIntoView();
     await this.profileBtn.waitForDisplayed({ timeout: 20000 });
     await this.profileBtn.waitForClickable({ timeout: 20000 });
