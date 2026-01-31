@@ -28,6 +28,7 @@ When(/^Login using newly created dynamic credentials$/, async function(){
   await browser.pause(3000);
   await browser.saveScreenshot('./debug-post-login.png');
   await authPage.userMenuDropdown.waitForExist({ timeout: 10000 });
+  await authPage.userMenuDropdown.waitForClickable({ timeout: 10000 });
   await expect(authPage.userMenuDropdown).toBeExisting();
 });
 
