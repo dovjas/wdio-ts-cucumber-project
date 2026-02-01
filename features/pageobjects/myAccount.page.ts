@@ -47,9 +47,19 @@ class MyAccount {
 
   //Actions
   async openProfile() {
-    await this.profileBtn.waitForExist({ timeout: 20000 });
-    await this.profileBtn.waitForDisplayed({ timeout: 20000 });
-    await this.profileBtn.click();
+    await browser.waitUntil(
+      async () => (await browser.getUrl()).includes('/account'),
+      {
+        timeout: 20000,
+        timeoutMsg: 'User is not on account page after login',
+      },
+    );
+
+  // Navigate directly — no flaky clicks
+  await browser.url('/account/profile');
+
+  // Confirm profile page loaded
+  await expect(this.firstName_input).toBeDisplayed()
   }
 
   async waitForProfileDataToLoad() {

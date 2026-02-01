@@ -1,7 +1,7 @@
 import allureReporter from '@wdio/allure-reporter';
-import cucumberJson from 'wdio-cucumberjs-json-reporter';
 
 export const config: WebdriverIO.Config = {
+  baseUrl: 'https://practicesoftwaretesting.com',
   //
   // ====================
   // Runner Configuration
@@ -308,12 +308,12 @@ export const config: WebdriverIO.Config = {
    * @param {object}             context          Cucumber World object
    */
   afterStep: async function (step, scenario, result, context) {
-    if(!result.passed){
+    if (!result.passed) {
       await allureReporter.addAttachment(
         'Failure screenshot',
         await browser.takeScreenshot(),
-        'imgg/png'
-      )
+        'imgg/png',
+      );
     }
   },
   /**
