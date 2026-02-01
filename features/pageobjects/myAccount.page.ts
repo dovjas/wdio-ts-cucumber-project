@@ -1,3 +1,4 @@
+import { ur } from "@faker-js/faker/.";
 import { waitForInputValue } from "../utils/waitFor.ts";
 
 class MyAccount {
@@ -46,12 +47,24 @@ class MyAccount {
   }
 
   //Actions
+  async openProfile(){
+    await browser.waitUntil(
+      async() =>{
+        const url = await browser.getUrl()
+        return url.includes('/account')
+      },
+      {
+        timeout: 20000,
+        timeoutMsg: 'User is not on account page after login',
+      })
+      await this.profileBtn.waitForExist({ timeout: 20000 });
+      await this.profileBtn.waitForDisplayed({ timeout: 20000 });
+      await this.profileBtn.click();
+    }
+
   async verifyAddressInfo() {
+    await this.openProfile();
     console.log('Current URL of VerifyAddress:', await browser.getUrl());
-    await this.profileBtn.scrollIntoView();
-    await this.profileBtn.waitForDisplayed({ timeout: 20000 });
-    await this.profileBtn.waitForClickable({ timeout: 20000 });
-    await this.profileBtn.click();
 
     await waitForInputValue(this.firstName_input);
     await waitForInputValue(this.lastName_input);
