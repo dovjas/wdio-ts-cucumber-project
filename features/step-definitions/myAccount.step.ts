@@ -8,7 +8,7 @@ Then(
     if(!this.user){
       throw new Error('User not found in World');
     }
-    await MyAccountPage.verifyAddressInfo();
+    await MyAccountPage.waitForProfileDataToLoad();
     await expect(MyAccountPage.phone_input).toBeDisplayed();
   }
 );

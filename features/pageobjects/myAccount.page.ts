@@ -1,4 +1,3 @@
-import { ur } from "@faker-js/faker/.";
 import { waitForInputValue } from "../utils/waitFor.ts";
 
 class MyAccount {
@@ -47,22 +46,13 @@ class MyAccount {
   }
 
   //Actions
-  async openProfile(){
-    await browser.waitUntil(
-      async() =>{
-        const url = await browser.getUrl()
-        return url.includes('/account')
-      },
-      {
-        timeout: 20000,
-        timeoutMsg: 'User is not on account page after login',
-      })
-      await this.profileBtn.waitForExist({ timeout: 20000 });
-      await this.profileBtn.waitForDisplayed({ timeout: 20000 });
-      await this.profileBtn.click();
-    }
+  async openProfile() {
+    await this.profileBtn.waitForExist({ timeout: 20000 });
+    await this.profileBtn.waitForDisplayed({ timeout: 20000 });
+    await this.profileBtn.click();
+  }
 
-  async verifyAddressInfo() {
+  async waitForProfileDataToLoad() {
     await this.openProfile();
     console.log('Current URL of VerifyAddress:', await browser.getUrl());
 
@@ -76,14 +66,14 @@ class MyAccount {
     await waitForInputValue(this.phone_input);
     await waitForInputValue(this.email_input);
 
-  // await expect(this.firstName_input).toHaveValue(user.firstName);
-  // await expect(this.lastName_input).toHaveValue(user.lastName);
-  // await expect(this.street_input).toHaveValue(user.street);
-  // await expect(this.postalCode_input).toHaveValue(user.postal);
-  // await expect(this.city_input).toHaveValue(user.city);
-  // await expect(this.state_input).toHaveValue(user.state);
-  // await expect(this.phone_input).toHaveValue(user.phone);
-  // await expect(this.email_input).toHaveValue(user.email);
+    // await expect(this.firstName_input).toHaveValue(user.firstName);
+    // await expect(this.lastName_input).toHaveValue(user.lastName);
+    // await expect(this.street_input).toHaveValue(user.street);
+    // await expect(this.postalCode_input).toHaveValue(user.postal);
+    // await expect(this.city_input).toHaveValue(user.city);
+    // await expect(this.state_input).toHaveValue(user.state);
+    // await expect(this.phone_input).toHaveValue(user.phone);
+    // await expect(this.email_input).toHaveValue(user.email);
   }
 }
 export default new MyAccount();
