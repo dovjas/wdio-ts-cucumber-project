@@ -1,4 +1,4 @@
-import { waitForInputValue } from "../utils/waitFor.ts";
+import { waitForInputValue, waitForPageComplete } from "../utils/waitFor.ts";
 
 class MyAccount {
   //Locators
@@ -57,7 +57,7 @@ class MyAccount {
 
   // Navigate directly — no flaky clicks
   await browser.url('/account/profile');
-
+  await waitForPageComplete()
   await browser.waitUntil(
     async() =>((await this.firstName_input.isDisplayed()),
       {
