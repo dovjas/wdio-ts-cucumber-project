@@ -59,14 +59,13 @@ class MyAccount {
   await browser.url('/account/profile');
   await waitForPageComplete()
   await browser.waitUntil(
-    async() =>((await this.firstName_input.isDisplayed()),
+    async() =>(await this.firstName_input.isDisplayed()),
       {
         timeout: 30000, // give extra time for CI
         interval: 500,
         timeoutMsg: '#first_name input did not display within 30s',
       }
     )
-  )
   }
 
   async waitForProfileDataToLoad() {
